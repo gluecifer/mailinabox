@@ -1,6 +1,139 @@
 CHANGELOG
 =========
 
+IN DEVELOPMENT
+--------------
+
+Software updates:
+
+* Upgraded Nextcloud from 17.0.6 to 20.0.1 (with Contacts from 3.3.0 to 3.4.1 and Calendar from 2.0.3 to 2.1.2)
+* Upgraded Roundcube to version 1.4.9.
+
+Mail:
+
+* The MTA-STA max_age value was increased to the normal one week.
+
+Control Panel:
+
+* Two-factor authentication can now be enabled for logins to the control panel. However, keep in mind that many online services (including domain name registrars, cloud server providers, and TLS certificate providers) may allow an attacker to take over your account or issue a fraudulent TLS certificate with only access to your email address, and this new two-factor authentication does not protect access to your inbox. It therefore remains very important that user accounts with administrative email addresses have strong passwords.
+* TLS certificate expiry dates are now shown in ISO8601 format for clarity.
+
+v0.50 (September 25, 2020)
+--------------------------
+
+Setup:
+
+* When upgrading from versions before v0.40, setup will now warn that ownCloud/Nextcloud data cannot be migrated rather than failing the installation.
+
+Mail:
+
+* An MTA-STS policy for incoming mail is now published (in DNS and over HTTPS) when the primary hostname and email address domain both have a signed TLS certificate installed, allowing senders to know that an encrypted connection should be enforced.
+* The per-IP connection limit to the IMAP server has been doubled to allow more devices to connect at once, especially with multiple users behind a NAT.
+
+DNS:
+
+* autoconfig and autodiscover subdomains and CalDAV/CardDAV SRV records are no longer generated for domains that don't have user accounts since they are unnecessary.
+* IPv6 addresses can now be specified for secondary DNS nameservers in the control panel.
+
+TLS:
+
+* TLS certificates are now provisioned in groups by parent domain to limit easy domain enumeration and make provisioning more resilient to errors for particular domains.
+
+Control Panel:
+
+* The control panel API is now fully documented at https://mailinabox.email/api-docs.html.
+* User passwords can now have spaces.
+* Status checks for automatic subdomains have been moved into the section for the parent domain.
+* Typo fixed.
+
+Web:
+
+* The default web page served on fresh installations now adds the `noindex` meta tag.
+* The HSTS header is revised to also be sent on non-success responses.
+
+v0.48 (August 26, 2020)
+-----------------------
+
+Security fixes:
+
+* Roundcube is updated to version 1.4.8 fixing additional cross-site scripting (XSS) vulnerabilities.
+
+v0.47 (July 29, 2020)
+---------------------
+
+Security fixes:
+
+* Roundcube is updated to version 1.4.7 fixing a cross-site scripting (XSS) vulnerability with HTML messages with malicious svg/namespace (CVE-2020-15562) (https://roundcube.net/news/2020/07/05/security-updates-1.4.7-1.3.14-and-1.2.11).
+* SSH connections are now rate-limited at the firewall level (in addition to fail2ban).
+
+v0.46 (June 11, 2020)
+---------------------
+
+Security fixes:
+
+* Roundcube is updated to version 1.4.6 (https://roundcube.net/news/2020/06/02/security-updates-1.4.5-and-1.3.12).
+
+v0.45 (May 16, 2020)
+--------------------
+
+Security fixes:
+
+* Fix missing brute force login protection for Roundcube logins.
+
+Software updates:
+
+* Upgraded Roundcube from 1.4.2 to 1.4.4.
+* Upgraded Nextcloud from 17.0.2 to 17.0.6 (with Contacts from 3.1.6 to 3.3.0 and Calendar from 1.7.1 to v2.0.3)
+* Upgraded Z-Push to 2.5.2.
+
+System:
+
+* Nightly backups now occur on a random minute in the 3am hour (in the system time zone). The minute is chosen during Mail-in-a-Box installation/upgrade and remains the same until the next upgrade.
+* Fix for mail log statistics report on leap days.
+* Fix Mozilla autoconfig useGlobalPreferredServer setting.
+
+Web:
+
+* Add a new hidden feature to set nginx alias in www/custom.yaml.
+
+Setup:
+
+* Improved error handling.
+
+v0.44 (February 15, 2020)
+-------------------------
+
+System:
+
+* TLS settings have been upgraded following Mozilla's recommendations for servers. TLS1.2 and 1.3 are now the only supported protocols for web, IMAP, and SMTP (submission).
+* Fixed an issue starting services when Mail-in-a-Box isn't on the root filesystem.
+* Changed some performance options affecting Roundcube and Nextcloud.
+
+Software updates:
+
+* Upgraded Nextcloud from 15.0.8 to 17.0.2 (with Contacts from 3.1.1 to 3.1.6 and Calendar from 1.6.5 to 1.7.1)
+* Upgraded Z-Push to 2.5.1.
+* Upgraded Roundcube from 1.3.10 to 1.4.2 and changed the default skin (theme) to Elastic.
+
+Control panel:
+
+* The Custom DNS list of records is now sorted.
+* The emails that report TLS provisioning results now has a less scary subject line.
+
+Mail:
+
+* Fetching of updated whitelist for greylisting was fetching each day instead of every month.
+* OpenDKIM signing has been changed to 'relaxed' mode so that some old mail lists that forward mail can do so.
+
+DNS:
+
+* Automatic autoconfig.* subdomains can now be suppressed with custom DNS records.
+* DNS zone transfer now works with IPv6 addresses.
+
+Setup:
+
+* An Ubuntu package source was missing on systems where it defaults off.
+
 v0.43 (September 1, 2019)
 -------------------------
 
